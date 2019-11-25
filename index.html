@@ -3,6 +3,7 @@
     <head>
         <title>ROCK-PAPER-SCISSORS</title>
     </head>
+        
     <body>
         <script>
             function computerPlay(){
@@ -61,15 +62,15 @@
                     }
 
                     alert('Current score: Player: '+ playerScore + ',' + ' Computer: ' + compScore);
-                    }
-
-                    if (playerScore > compScore){
-                        alert('Final result: Player wins!');
-                    } else if (compScore > playerScore) {
-                        alert('Final result: Computer wins!');
-                    } else{
-                        alert('Final result: Draw!');
-                    }
+                }
+                
+                if (playerScore > compScore){
+                    alert('Final result: Player wins!');
+                } else if (compScore > playerScore) {
+                    alert('Final result: Computer wins!');
+                } else{
+                    alert('Final result: Draw!');
+                }
             }
 
            game();
