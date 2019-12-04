@@ -1,0 +1,44 @@
+body {
+  background: #f3f3f3; }
+
+#container {
+  border-radius: 1rem;
+  margin-top: 2rem !important;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 3rem 3rem 3rem 3rem 3rem 3rem;
+  max-width: 30rem;
+  background: lightblue;
+  margin: 0 auto;
+  justify-items: center; }
+  #container button {
+    width: 100%; }
+  #container #paper {
+    grid-row: 1/3;
+    grid-column: 2/3; }
+  #container #rock, #container #scissors {
+    grid-row: 4/6; }
+  #container #rock {
+    grid-column: 1/2; }
+  #container #scissors {
+    grid-column: 3/-1; }
+  #container .playerSelection, #container .computerSelection {
+    grid-row: 2; }
+  #container .playerSelection {
+    grid-column: 1/2; }
+  #container .computerSelection {
+    grid-column: 3/-1; }
+  #container .rounds {
+    grid-row: 4;
+    grid-column: 2; }
+  #container .result, #container .score {
+    grid-column: 1/-1; }
+  #container .result {
+    grid-row: 6;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 1.3rem;
+    position: relative;
+    top: 1rem; }
+
+/*# sourceMappingURL=index.css.map */

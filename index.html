@@ -1,80 +1,165 @@
 <!doctype html>
-<html>
-    <head>
-        <title>ROCK-PAPER-SCISSORS</title>
-    </head>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
+    <title>ROCK-PAPER-SCISSORS</title>
+  </head>
+  <body>
+      <div id="container">
+          <button id="rock">Rock</button>
+          <button id="paper">Paper</button>
+          <button id="scissors">Scissors</button>
+          <div class="playerSelection">Player</div>
+          <div class="computerSelection">Computer</div>
+          <div class="result"></div>
+          <div class="rounds"></div>
+          <div class="playerScore"></div>
+          <div class="compScore"></div>
+      </div>
+      <script>
+        //layout, styles, bootstrap
+        // let container = document.querySelector('#container');
+        // container.classList.add('container');
+        let buttons = document.querySelectorAll('button');
+        buttons.forEach((btn) => {
+                btn.classList.add('rounded-circle');
+        });
+        // let rock = document.querySelector('#rock');
+        // let paper = document.querySelector('#paper');
+        // let scissors = document.querySelector('#scissors');
         
-    <body>
-        <script>
-            function computerPlay(){
-                let val = Math.floor(Math.random() * 3);
-			    if (val === 1 ) {
-				    return("rock");
-			    } else if (val === 2 ) {
-				    return("paper");
-			    } else {
-				    return("scissors");
-			    }
-            };
-
-            function playRound(playerSelection, computerSelection){
-                if(playerSelection === 'paper' && computerSelection === 'paper'){
-                    return('Draw');
-                } else if(playerSelection === 'paper' && computerSelection === 'rock'){
-                    return('You win!');
-                } else if(playerSelection === 'paper' && computerSelection === 'scissors'){
-                    return('You lose! Scissors beats paper');
-                } else if(playerSelection === 'rock' && computerSelection === 'rock'){
-                    return('Draw');
-                } else if(playerSelection === 'rock' && computerSelection === 'paper'){
-                    return('You lose! Paper beats rock');
-                } else if(playerSelection === 'rock' && computerSelection === 'scissors'){
-                    return('You win!');
-                } else if(playerSelection === 'scissors' && computerSelection === 'scissors'){
-                    return('Draw');
-                } else if(playerSelection === 'scissors' && computerSelection === 'rock'){
-                    return('You lose! Rock beats scissors');
-                } else if(playerSelection === 'scissors' && computerSelection === 'paper'){
-                    return('You win!');
-                }
-            };
-
             
-           
+        //game
 
-            function game(){
-                let result;
-                let playerScore = 0;
-                let compScore = 0;
-                for (let i = 0; i < 3; i++){
-                    let playerSelection = prompt('rock, paper, scissors?');
-                    playerSelection = playerSelection.toLowerCase();
-                    playerSelection = playerSelection.trim();
-                    const computerSelection = computerPlay();
-                    result = playRound(playerSelection, computerSelection);
-                    alert(result);
+        let playerSelection;
+        let playerScore = 0;
+        let compScore = 0;
+        let rounds = 0;
+            
+            
+        // iterate through each button
+        // let buttons = document.querySelectorAll('button');
+        buttons.forEach((btn) => {
+        // and for each one add a 'click' listener
+            btn.addEventListener('click', function(){
+                //Use buttons to get input from the user
+                playerSelection = btn.id;
+                game(playerSelection);
+            });
+        });
 
-                    if(result === 'You win!'){
-                         playerScore++;
-                        
-                    } else if(result === 'You lose! Scissors beats paper' || result === 'You lose! Paper beats rock' || result === 'You lose! Rock beats scissors') {
-                         compScore ++;
-                    }
+        //play a 5 round game that keeps score and reports a winner or loser at the end.
+        function game(playerSelection){
 
-                    alert('Current score: Player: '+ playerScore + ',' + ' Computer: ' + compScore);
-                }
-                
-                if (playerScore > compScore){
-                    alert('Final result: Player wins!');
-                } else if (compScore > playerScore) {
-                    alert('Final result: Computer wins!');
-                } else{
-                    alert('Final result: Draw!');
-                }
+            document.querySelector('.playerSelection').innerHTML = playerSelection;
+
+            //randomly return either ‘Rock’, ‘Paper’ or ‘Scissors’
+            let computerSelection;
+            let val = Math.floor(Math.random() * 3);
+            if (val === 1 ) {
+                computerSelection = "rock";
+            } else if (val === 2 ) {
+                computerSelection = "paper";
+            } else {
+                computerSelection = "scissors";
+            }
+            document.querySelector('.computerSelection').textContent = computerSelection;
+            console.log('Player: '+playerSelection+ '; ' + 'Computer: ' + computerSelection);
+            let result;
+                    
+                    
+            //return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
+            if(playerSelection === 'paper' && computerSelection === 'paper'){
+                result ='Draw';
+            } else if(playerSelection === 'paper' && computerSelection === 'rock'){
+                result ='You win! Paper beats Rock';
+                playerScore++;
+            } else if(playerSelection === 'paper' && computerSelection === 'scissors'){
+                result ='You lose! Scissors beats Paper';
+                compScore++;
+            } else if(playerSelection === 'rock' && computerSelection === 'rock'){
+                result ='Draw';
+            } else if(playerSelection === 'rock' && computerSelection === 'paper'){
+                result ='You lose! Paper beats Rock';
+                compScore++;
+            } else if(playerSelection === 'rock' && computerSelection === 'scissors'){
+                result ='You win! Rock beats Scissors';
+                playerScore++;
+            } else if(playerSelection === 'scissors' && computerSelection === 'scissors'){
+                result ='Draw';
+            } else if(playerSelection === 'scissors' && computerSelection === 'rock'){
+                result ='You lose! Rock beats Scissors';
+                compScore++;
+            } else if(playerSelection === 'scissors' && computerSelection === 'paper'){
+                result ='You win! Scissors beats Paper';
+                playerScore++;
             }
 
-           game();
-           
-        </script>
-    </body>
+            
+            rounds++;
+            document.querySelector('.rounds').textContent = 'Round: '+rounds;
+                
+            if(playerScore > 4  || compScore > 4){
+            //    if(confirm('Computer: '+computerSelection+'\n'+ result+'\n' +'Player: '+ playerScore + ';\n' + 'Computer: '+ compScore + ';\n' + 'PLAY AGAIN?') === true){
+            //     playerScore = 0;
+            //     compScore = 0;
+            //     rounds = 0;
+            //     document.querySelector('.result').textContent = '';
+            //     document.querySelector('.score').textContent = '';
+            //     document.querySelector('.round').textContent = '';
+            //     document.querySelector('.computerSelection').textContent = '';
+            //    } else {
+            //     document.querySelector('.score').textContent = 'game over';
+            //     document.querySelector('.result').textContent = '';
+            //     document.querySelector('.round').textContent = '';
+            //     document.querySelector('.computerSelection').textContent = '';
+            //     buttons.forEach((btn) => {
+            //         btn.style.display = 'none';
+            //     });
+            // }
+                document.querySelector('.playerScore').textContent = playerScore;
+                document.querySelector('.compScore').textContent = compScore;
+                let restartBtn = document.createElement('button');
+                restartBtn.textContent = 'Restart';
+                restartBtn.style.gridRow = '8';
+                restartBtn.style.gridColumn = '2/-2';
+                restartBtn.style.borderRadius = '1rem';
+                document.querySelector('#container').appendChild(restartBtn);
+                restartBtn.addEventListener('click', function(){
+                    window.location.reload(true);
+                })
+
+                buttons.forEach((btn) => {
+                    btn.disabled = 'true';
+                });
+
+                document.querySelector('.result').style.gridRow = '5';
+
+                if(playerScore > compScore){
+                    document.querySelector('.result').textContent = 'You Win!';
+                } else {
+                    document.querySelector('.result').textContent = 'You Lose!';
+                }
+
+                    
+            } else{
+                document.querySelector('.playerScore').textContent = playerScore;
+                document.querySelector('.compScore').textContent = compScore;
+                document.querySelector('.result').textContent = result;
+            } 
+
+        }
+      </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>
